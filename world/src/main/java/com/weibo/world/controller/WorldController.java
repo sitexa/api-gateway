@@ -16,9 +16,19 @@ public class WorldController {
     @Autowired
     RestTemplate restTemplate;
 
-    @RequestMapping("/world")
+    @RequestMapping("/")
     public String world() {
-        String helloResult = restTemplate.getForObject("http://hello-service/hello", String.class);
-        return "\n [[world-service]] call [[hello-service]]:" + helloResult ;
+        String helloResult = restTemplate.getForObject("http://hello-service/", String.class);
+        return "World===>" + helloResult ;
+    }
+
+    @RequestMapping("/you")
+    public String you(){
+        return "World:you";
+    }
+
+    @RequestMapping("/me")
+    public String me(){
+        return "world:me";
     }
 }

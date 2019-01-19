@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+import java.util.HashMap;
+
 /**
  * @author: xnpeng (xpneng@hotmail.com)
  * @date: 2019/1/18
@@ -22,13 +25,41 @@ public class ConsumerController {
     @Autowired
     WorldClient worldClient;
 
-    @RequestMapping("/consumer")
-    public String consumer() {
+    @RequestMapping("/")
+    public String index() {
+        return "Consumer";
+    }
 
+    @RequestMapping("/call-hello")
+    public String callHello() {
         String helloResult = helloClient.hello();
+        return "Consumer===>" + helloResult;
+    }
+
+    @RequestMapping("/call-world")
+    public String callWorld() {
         String worldResult = worldClient.world();
+        return "Consumer===>" + worldResult;
+    }
 
-        return "\n[[Consumer]] call [[hello-service]]:" + helloResult + "; and [[world-service]]:" + worldResult;
+    @RequestMapping("/call-say")
+    public String callSay() {
+        String sayResult = helloClient.say("Oscar");
+        return "Consumer===>" + sayResult;
+    }
 
+    @RequestMapping("/call-bye")
+    public String callBye() {
+        String byeResult = helloClient.bye("Intel");
+        return "Consumer===>" + byeResult;
+    }
+
+    @RequestMapping("/call-play")
+    public String callPlay() {
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("name", "basketball");
+        body.put("time", new Date());
+        String playResult = helloClient.play(body);
+        return "Consumer===>" + playResult;
     }
 }
